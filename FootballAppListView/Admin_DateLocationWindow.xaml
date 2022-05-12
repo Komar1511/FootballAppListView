@@ -1,0 +1,30 @@
+﻿<Page x:Class="FootballAppListView.Admin_DateLocationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FootballAppListView"
+        mc:Ignorable="d"
+        Title="Admins_DATELOCWindow" IsVisibleChanged="Admins_IsVisibleChanged" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="DGridDateLoc" BorderThickness="0" BorderBrush="Transparent" FontWeight="DemiBold" Background="White" RowBackground="LightCoral" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,66,0,40.5" VerticalScrollBarVisibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Номер матча" Binding="{Binding id_match}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Дата-время" Binding="{Binding Date_time}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Название турнира" Binding="{Binding Name_tournament}" ></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Номер стадиона" Binding="{Binding id_stadium}" ></DataGridTextColumn>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Редактировать" Name="BtnEdit" Click="BtnEdit_Click"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Добавить" Name="BtnAdd" Click="BtnAdd_Click" HorizontalAlignment="Left" Margin="10,382,0,0" VerticalAlignment="Top" Width="204" Height="30"/>
+        <Button Content="Удалить/Обновить запись" Name="BtnDelete" Click="BtnDelete_Click" HorizontalAlignment="Right" Margin="0,382,0,38" Width="204" Height="30"/>
+        <Button Content="Назад" Name="BtnBack" Click="BtnBack_Click" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="81" Height="30"/>
+        <Frame x:Name="MainFrame"  Margin="10,66,0,40.5"></Frame>
+    </Grid>
+</Page>

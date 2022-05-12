@@ -1,0 +1,29 @@
+﻿<Window x:Class="FootballAppListView.Reg_Window" 
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+ xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+ xmlns:local="clr-namespace:FootballAppListView" 
+ mc:Ignorable="d" 
+ Title="Reg_Window" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/Football_Reg.jpg"></ImageBrush>
+        </Grid.Background>
+        <Grid HorizontalAlignment="Left" Height="320" Margin="10,25,0,0" VerticalAlignment="Top" Width="771">
+
+            <TextBlock HorizontalAlignment="Left" Margin="609,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="48" Width="90" Text="Логин" FontSize="24" FontWeight="Heavy"/>
+            <TextBox x:Name="PasswordText" Text="{Binding password}" HorizontalAlignment="Left" Height="46" Margin="564,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" FontSize="18"/>
+        </Grid>
+        <TextBox x:Name="SurnameText" Text="{Binding Surname}" HorizontalAlignment="Left" Height="48" Margin="126,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" FontSize="18"/>
+        <TextBox x:Name="NameText" Text="{Binding Name}" HorizontalAlignment="Left" Height="46" Margin="126,207,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" FontSize="18"/>
+        <TextBlock FontWeight="Heavy" HorizontalAlignment="Left" Margin="10,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="48" Width="139" Text="Фамилия" FontSize="23"/>
+        <TextBlock FontWeight="Heavy" HorizontalAlignment="Left" Margin="62,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="44" Width="59" FontSize="24" RenderTransformOrigin="0.423,0.303"><Run Text="И"/><Run Text="мя"/></TextBlock>
+        <Button Content="Зарегистрироваться" FontWeight="Bold" Background="DarkGreen" HorizontalAlignment="Left" Margin="342,349,0,0" VerticalAlignment="Top" Width="125" Click="Button_Click" Height="33"/>
+        <TextBox x:Name="LoginText" Text="{Binding login}" HorizontalAlignment="Left" Height="46" Margin="574,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" FontSize="18"/>
+        <Button Content="Назад" Name="BtnBack" Click="BtnBack_Click" Margin="678,10,10,361" FontSize="24"/>
+        <TextBlock FontWeight="Heavy" HorizontalAlignment="Left" Margin="608,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="48" Width="126" Text="Пароль" FontSize="24"/>
+
+
+    </Grid>
+</Window>

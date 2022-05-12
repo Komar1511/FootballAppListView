@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище FootballModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" Nullable="false" />
+          <Property Name="login_adm" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password_adm" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clubs">
+          <Key>
+            <PropertyRef Name="id_club" />
+          </Key>
+          <Property Name="id_club" Type="int" Nullable="false" />
+          <Property Name="name_club" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="country" Type="varchar" MaxLength="50" />
+          <Property Name="id_coach" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Coaches">
+          <Key>
+            <PropertyRef Name="id_coach" />
+          </Key>
+          <Property Name="id_coach" Type="int" Nullable="false" />
+          <Property Name="Country_birth" Type="varchar" MaxLength="50" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ImageCoach" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Date_Location">
+          <Key>
+            <PropertyRef Name="id_match" />
+          </Key>
+          <Property Name="id_match" Type="int" Nullable="false" />
+          <Property Name="Date_time" Type="smalldatetime" Nullable="false" />
+          <Property Name="Name_tournament" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_stadium" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fans">
+          <Key>
+            <PropertyRef Name="fan_id" />
+          </Key>
+          <Property Name="fan_id" Type="int" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Goals">
+          <Key>
+            <PropertyRef Name="id_player" />
+            <PropertyRef Name="id_match" />
+            <PropertyRef Name="id_club" />
+          </Key>
+          <Property Name="id_player" Type="int" Nullable="false" />
+          <Property Name="id_match" Type="int" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="id_club" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="id_stadium" />
+          </Key>
+          <Property Name="id_stadium" Type="int" Nullable="false" />
+          <Property Name="Name_stadium" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="ImageStadium" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="id_player" />
+            <PropertyRef Name="id_club" />
+          </Key>
+          <Property Name="id_player" Type="int" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Position" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number_player" Type="int" />
+          <Property Name="id_club" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="id_club" />
+            <PropertyRef Name="id_match" />
+          </Key>
+          <Property Name="id_club" Type="int" Nullable="false" />
+          <Property Name="id_match" Type="int" Nullable="false" />
+          <Property Name="Final_Score" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_coach">
+          <End Role="Coaches" Type="Self.Coaches" Multiplicity="1" />
+          <End Role="Clubs" Type="Self.Clubs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coaches">
+              <PropertyRef Name="id_coach" />
+            </Principal>
+            <Dependent Role="Clubs">
+              <PropertyRef Name="id_coach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_clubs">
+          <End Role="Clubs" Type="Self.Clubs" Multiplicity="1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clubs">
+              <PropertyRef Name="id_club" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="id_club" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_clubs_results">
+          <End Role="Clubs" Type="Self.Clubs" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clubs">
+              <PropertyRef Name="id_club" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="id_club" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_match">
+          <End Role="Date_Location" Type="Self.Date_Location" Multiplicity="1" />
+          <End Role="Goals" Type="Self.Goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Date_Location">
+              <PropertyRef Name="id_match" />
+            </Principal>
+            <Dependent Role="Goals">
+              <PropertyRef Name="id_match" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_matches_results">
+          <End Role="Date_Location" Type="Self.Date_Location" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Date_Location">
+              <PropertyRef Name="id_match" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="id_match" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_players">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="Goals" Type="Self.Goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="id_club" />
+              <PropertyRef Name="id_player" />
+            </Principal>
+            <Dependent Role="Goals">
+              <PropertyRef Name="id_club" />
+              <PropertyRef Name="id_player" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_stadium">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Date_Location" Type="Self.Date_Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="id_stadium" />
+            </Principal>
+            <Dependent Role="Date_Location">
+              <PropertyRef Name="id_stadium" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Coaches_proc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Match_Location" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Score_In_Match" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Top_Scorer_Clubs3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Top_Scorer5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Top_ScorerAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище FootballModelContainer">
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clubs" EntityType="Self.Clubs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Coaches" EntityType="Self.Coaches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Date_Location" EntityType="Self.Date_Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fans" EntityType="Self.Fans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Goals" EntityType="Self.Goals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_coach" Association="Self.fk_coach">
+            <End Role="Coaches" EntitySet="Coaches" />
+            <End Role="Clubs" EntitySet="Clubs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_clubs" Association="Self.fk_id_clubs">
+            <End Role="Clubs" EntitySet="Clubs" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_clubs_results" Association="Self.fk_id_clubs_results">
+            <End Role="Clubs" EntitySet="Clubs" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_match" Association="Self.fk_id_match">
+            <End Role="Date_Location" EntitySet="Date_Location" />
+            <End Role="Goals" EntitySet="Goals" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_matches_results" Association="Self.fk_id_matches_results">
+            <End Role="Date_Location" EntitySet="Date_Location" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_players" Association="Self.fk_id_players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Goals" EntitySet="Goals" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_stadium" Association="Self.fk_id_stadium">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Date_Location" EntitySet="Date_Location" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FootballModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" />
+          <Property Name="login_adm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password_adm" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clubs">
+          <Key>
+            <PropertyRef Name="id_club" />
+          </Key>
+          <Property Name="id_club" Type="Int32" Nullable="false" />
+          <Property Name="name_club" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_coach" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Coaches" Relationship="Self.fk_coach" FromRole="Clubs" ToRole="Coaches" />
+          <NavigationProperty Name="Players" Relationship="Self.fk_id_clubs" FromRole="Clubs" ToRole="Players" />
+          <NavigationProperty Name="Results" Relationship="Self.fk_id_clubs_results" FromRole="Clubs" ToRole="Results" />
+        </EntityType>
+        <EntityType Name="Coaches">
+          <Key>
+            <PropertyRef Name="id_coach" />
+          </Key>
+          <Property Name="id_coach" Type="Int32" Nullable="false" />
+          <Property Name="Country_birth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImageCoach" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Clubs" Relationship="Self.fk_coach" FromRole="Coaches" ToRole="Clubs" />
+        </EntityType>
+        <EntityType Name="Date_Location">
+          <Key>
+            <PropertyRef Name="id_match" />
+          </Key>
+          <Property Name="id_match" Type="Int32" Nullable="false" />
+          <Property Name="Date_time" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Name_tournament" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_stadium" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Goals" Relationship="Self.fk_id_match" FromRole="Date_Location" ToRole="Goals" />
+          <NavigationProperty Name="Results" Relationship="Self.fk_id_matches_results" FromRole="Date_Location" ToRole="Results" />
+          <NavigationProperty Name="Location" Relationship="Self.fk_id_stadium" FromRole="Date_Location" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Fans">
+          <Key>
+            <PropertyRef Name="fan_id" />
+          </Key>
+          <Property Name="fan_id" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Goals">
+          <Key>
+            <PropertyRef Name="id_player" />
+            <PropertyRef Name="id_match" />
+            <PropertyRef Name="id_club" />
+          </Key>
+          <Property Name="id_player" Type="Int32" Nullable="false" />
+          <Property Name="id_match" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="id_club" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Date_Location" Relationship="Self.fk_id_match" FromRole="Goals" ToRole="Date_Location" />
+          <NavigationProperty Name="Players" Relationship="Self.fk_id_players" FromRole="Goals" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="id_stadium" />
+          </Key>
+          <Property Name="id_stadium" Type="Int32" Nullable="false" />
+          <Property Name="Name_stadium" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImageStadium" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Date_Location" Relationship="Self.fk_id_stadium" FromRole="Location" ToRole="Date_Location" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="id_player" />
+            <PropertyRef Name="id_club" />
+          </Key>
+          <Property Name="id_player" Type="Int32" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Number_player" Type="Int32" />
+          <Property Name="id_club" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clubs" Relationship="Self.fk_id_clubs" FromRole="Players" ToRole="Clubs" />
+          <NavigationProperty Name="Goals" Relationship="Self.fk_id_players" FromRole="Players" ToRole="Goals" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="id_club" />
+            <PropertyRef Name="id_match" />
+          </Key>
+          <Property Name="id_club" Type="Int32" Nullable="false" />
+          <Property Name="id_match" Type="Int32" Nullable="false" />
+          <Property Name="Final_Score" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Clubs" Relationship="Self.fk_id_clubs_results" FromRole="Results" ToRole="Clubs" />
+          <NavigationProperty Name="Date_Location" Relationship="Self.fk_id_matches_results" FromRole="Results" ToRole="Date_Location" />
+        </EntityType>
+        <Association Name="fk_coach">
+          <End Role="Coaches" Type="Self.Coaches" Multiplicity="1" />
+          <End Role="Clubs" Type="Self.Clubs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coaches">
+              <PropertyRef Name="id_coach" />
+            </Principal>
+            <Dependent Role="Clubs">
+              <PropertyRef Name="id_coach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_clubs">
+          <End Role="Clubs" Type="Self.Clubs" Multiplicity="1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clubs">
+              <PropertyRef Name="id_club" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="id_club" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_clubs_results">
+          <End Role="Clubs" Type="Self.Clubs" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clubs">
+              <PropertyRef Name="id_club" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="id_club" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_match">
+          <End Role="Date_Location" Type="Self.Date_Location" Multiplicity="1" />
+          <End Role="Goals" Type="Self.Goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Date_Location">
+              <PropertyRef Name="id_match" />
+            </Principal>
+            <Dependent Role="Goals">
+              <PropertyRef Name="id_match" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_matches_results">
+          <End Role="Date_Location" Type="Self.Date_Location" Multiplicity="1" />
+          <End Role="Results" Type="Self.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Date_Location">
+              <PropertyRef Name="id_match" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="id_match" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_stadium">
+          <End Role="Location" Type="Self.Location" Multiplicity="1" />
+          <End Role="Date_Location" Type="Self.Date_Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="id_stadium" />
+            </Principal>
+            <Dependent Role="Date_Location">
+              <PropertyRef Name="id_stadium" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_id_players">
+          <End Role="Players" Type="Self.Players" Multiplicity="1" />
+          <End Role="Goals" Type="Self.Goals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="id_club" />
+              <PropertyRef Name="id_player" />
+            </Principal>
+            <Dependent Role="Goals">
+              <PropertyRef Name="id_club" />
+              <PropertyRef Name="id_player" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FootballEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admins" />
+          <EntitySet Name="Clubs" EntityType="Self.Clubs" />
+          <EntitySet Name="Coaches" EntityType="Self.Coaches" />
+          <EntitySet Name="Date_Location" EntityType="Self.Date_Location" />
+          <EntitySet Name="Fans" EntityType="Self.Fans" />
+          <EntitySet Name="Goals" EntityType="Self.Goals" />
+          <EntitySet Name="Location" EntityType="Self.Location" />
+          <EntitySet Name="Players" EntityType="Self.Players" />
+          <EntitySet Name="Results" EntityType="Self.Results" />
+          <AssociationSet Name="fk_coach" Association="Self.fk_coach">
+            <End Role="Coaches" EntitySet="Coaches" />
+            <End Role="Clubs" EntitySet="Clubs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_clubs" Association="Self.fk_id_clubs">
+            <End Role="Clubs" EntitySet="Clubs" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_clubs_results" Association="Self.fk_id_clubs_results">
+            <End Role="Clubs" EntitySet="Clubs" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_match" Association="Self.fk_id_match">
+            <End Role="Date_Location" EntitySet="Date_Location" />
+            <End Role="Goals" EntitySet="Goals" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_matches_results" Association="Self.fk_id_matches_results">
+            <End Role="Date_Location" EntitySet="Date_Location" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_stadium" Association="Self.fk_id_stadium">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Date_Location" EntitySet="Date_Location" />
+          </AssociationSet>
+          <AssociationSet Name="fk_id_players" Association="Self.fk_id_players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Goals" EntitySet="Goals" />
+          </AssociationSet>
+          <FunctionImport Name="Coaches_proc" ReturnType="Collection(FootballModel.Coaches_proc_Result)" />
+          <FunctionImport Name="Match_Location" ReturnType="Collection(FootballModel.Match_Location_Result)" />
+          <FunctionImport Name="Score_In_Match" ReturnType="Collection(FootballModel.Score_In_Match_Result)" />
+          <FunctionImport Name="Top_Scorer_Clubs3" ReturnType="Collection(FootballModel.Top_Scorer_Clubs3_Result)" />
+          <FunctionImport Name="Top_Scorer5" ReturnType="Collection(FootballModel.Top_Scorer5_Result)" />
+          <FunctionImport Name="Top_ScorerAll" ReturnType="Collection(FootballModel.Top_ScorerAll_Result)" />
+        </EntityContainer>
+        <ComplexType Name="Coaches_proc_Result">
+          <Property Type="String" Name="Surname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Country_birth" Nullable="true" MaxLength="50" />
+          <Property Type="Binary" Name="ImageCoach" Nullable="true" />
+          <Property Type="String" Name="name_club" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Match_Location_Result">
+          <Property Type="String" Name="Final_Score" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="name_club" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name_stadium" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="id_match" Nullable="false" />
+          <Property Type="DateTime" Name="Date_time" Nullable="false" Precision="16" />
+        </ComplexType>
+        <ComplexType Name="Score_In_Match_Result">
+          <Property Type="String" Name="name_club" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Surname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Position" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Score" Nullable="false" />
+          <Property Type="Int32" Name="id_match" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Top_Scorer_Clubs3_Result">
+          <Property Type="String" Name="country" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="name_club" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Score" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Top_Scorer5_Result">
+          <Property Type="String" Name="Surname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Number_player" Nullable="true" />
+          <Property Type="String" Name="Position" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="name_club" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Score" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Top_ScorerAll_Result">
+          <Property Type="String" Name="Surname" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Number_player" Nullable="true" />
+          <Property Type="String" Name="Position" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="name_club" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Score" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище FootballModelContainer" CdmEntityContainer="FootballEntities">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="FootballModel.Admins">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="login_adm" ColumnName="login_adm" />
+                <ScalarProperty Name="password_adm" ColumnName="password_adm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clubs">
+            <EntityTypeMapping TypeName="FootballModel.Clubs">
+              <MappingFragment StoreEntitySet="Clubs">
+                <ScalarProperty Name="id_club" ColumnName="id_club" />
+                <ScalarProperty Name="name_club" ColumnName="name_club" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="id_coach" ColumnName="id_coach" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coaches">
+            <EntityTypeMapping TypeName="FootballModel.Coaches">
+              <MappingFragment StoreEntitySet="Coaches">
+                <ScalarProperty Name="id_coach" ColumnName="id_coach" />
+                <ScalarProperty Name="Country_birth" ColumnName="Country_birth" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageCoach" ColumnName="ImageCoach" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Date_Location">
+            <EntityTypeMapping TypeName="FootballModel.Date_Location">
+              <MappingFragment StoreEntitySet="Date_Location">
+                <ScalarProperty Name="id_match" ColumnName="id_match" />
+                <ScalarProperty Name="Date_time" ColumnName="Date_time" />
+                <ScalarProperty Name="Name_tournament" ColumnName="Name_tournament" />
+                <ScalarProperty Name="id_stadium" ColumnName="id_stadium" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fans">
+            <EntityTypeMapping TypeName="FootballModel.Fans">
+              <MappingFragment StoreEntitySet="Fans">
+                <ScalarProperty Name="fan_id" ColumnName="fan_id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Goals">
+            <EntityTypeMapping TypeName="FootballModel.Goals">
+              <MappingFragment StoreEntitySet="Goals">
+                <ScalarProperty Name="id_player" ColumnName="id_player" />
+                <ScalarProperty Name="id_match" ColumnName="id_match" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="id_club" ColumnName="id_club" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Location">
+            <EntityTypeMapping TypeName="FootballModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="id_stadium" ColumnName="id_stadium" />
+                <ScalarProperty Name="Name_stadium" ColumnName="Name_stadium" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="ImageStadium" ColumnName="ImageStadium" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="FootballModel.Players">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="id_player" ColumnName="id_player" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Number_player" ColumnName="Number_player" />
+                <ScalarProperty Name="id_club" ColumnName="id_club" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="FootballModel.Results">
+              <MappingFragment StoreEntitySet="Results">
+                <ScalarProperty Name="id_club" ColumnName="id_club" />
+                <ScalarProperty Name="id_match" ColumnName="id_match" />
+                <ScalarProperty Name="Final_Score" ColumnName="Final_Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Coaches_proc" FunctionName="Хранилище FootballModel.Coaches_proc">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FootballModel.Coaches_proc_Result">
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Country_birth" ColumnName="Country_birth" />
+                <ScalarProperty Name="ImageCoach" ColumnName="ImageCoach" />
+                <ScalarProperty Name="name_club" ColumnName="name_club" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Match_Location" FunctionName="Хранилище FootballModel.Match_Location">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FootballModel.Match_Location_Result">
+                <ScalarProperty Name="Final_Score" ColumnName="Final_Score" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="name_club" ColumnName="name_club" />
+                <ScalarProperty Name="Name_stadium" ColumnName="Name_stadium" />
+                <ScalarProperty Name="id_match" ColumnName="id_match" />
+                <ScalarProperty Name="Date_time" ColumnName="Date_time" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Score_In_Match" FunctionName="Хранилище FootballModel.Score_In_Match">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FootballModel.Score_In_Match_Result">
+                <ScalarProperty Name="name_club" ColumnName="name_club" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="id_match" ColumnName="id_match" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Top_Scorer_Clubs3" FunctionName="Хранилище FootballModel.Top_Scorer_Clubs3">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FootballModel.Top_Scorer_Clubs3_Result">
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="name_club" ColumnName="name_club" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Top_Scorer5" FunctionName="Хранилище FootballModel.Top_Scorer5">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FootballModel.Top_Scorer5_Result">
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number_player" ColumnName="Number_player" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="name_club" ColumnName="name_club" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Top_ScorerAll" FunctionName="Хранилище FootballModel.Top_ScorerAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FootballModel.Top_ScorerAll_Result">
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number_player" ColumnName="Number_player" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="name_club" ColumnName="name_club" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

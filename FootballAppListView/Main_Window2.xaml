@@ -1,0 +1,35 @@
+﻿<Window x:Class="FootballAppListView.Main_Window2" 
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+ xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+ xmlns:local="clr-namespace:FootballAppListView" 
+ mc:Ignorable="d" 
+ Title="Main_Window2" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="Resources/Football_background.jpg"/>
+    </Window.Background>
+    <Grid>
+
+        <DataGrid BorderThickness="0" x:Name="DGridStrikersMatch" Background="OrangeRed" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,185,530,104" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn FontWeight="ExtraBold" Width="auto" Header="Клуб" Binding="{Binding name_club}" ></DataGridTextColumn>
+                <DataGridTextColumn FontWeight="ExtraBold" Width="auto" Header="Фамилия" Binding="{Binding Surname}" ></DataGridTextColumn>
+                <DataGridTextColumn FontWeight="ExtraBold" Width="auto" Header="Голы" Binding="{Binding Score}" ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Image Source="Resources/Cup.png"></Image>
+        <Button Content="Выход" FontSize="20" HorizontalAlignment="Left" Margin="707,10,0,0" Name="BtnHome" Click="BtnHome_Click" VerticalAlignment="Top" Width="75"/>
+        <TextBlock HorizontalAlignment="Left" Margin="528,275,0,0" FontSize="30" FontFamily="impact" TextWrapping="Wrap" Text="Список игроков" VerticalAlignment="Top" Height="44" Width="227"/>
+        <Button Content="Открыть" HorizontalAlignment="Left" Background="ForestGreen" Name="BtnPlayers" Click="BtnPlayers_Click" FontSize="18" Margin="582,319,0,0" VerticalAlignment="Top" Width="98" Height="32"/>
+        <TextBlock HorizontalAlignment="Left" Margin="528,102,0,0" FontSize="30" FontFamily="impact" TextWrapping="Wrap" VerticalAlignment="Top" Height="71" Width="227" Text="Бомбардиры турнира"></TextBlock>
+        <Button Content="Смотреть" Background="DarkSeaGreen" HorizontalAlignment="Left" Name="BtnStrikers" Click="BtnStrikers_Click" Margin="648,141,0,0" VerticalAlignment="Top" Width="76" Height="32"/>
+        <Button Content="Команды" FontSize="16" HorizontalAlignment="Left" Margin="10,382,0,0" x:Name="BtnPrev" Click="BtnPrev_Click" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Стадионы" FontSize="16" HorizontalAlignment="Left" Margin="707,382,0,0" x:Name="BtnNext" Click="BtnNext_Click" VerticalAlignment="Top" Width="80"/>
+        <TextBlock Background="PaleVioletRed" HorizontalAlignment="Left" Margin="348,30,0,0" FontSize="30" FontFamily="impact" TextWrapping="Wrap" VerticalAlignment="Top" Height="37" Width="94" Text="Игроки"></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,14,0,0" FontSize="27" FontFamily="impact" TextWrapping="Wrap" Text="Кто забил в матче с номером :" VerticalAlignment="Top" Height="162" Width="215"/>
+        <TextBlock Background="AliceBlue" HorizontalAlignment="Left" Margin="10,162,0,0" FontSize="14" FontFamily="impact" TextWrapping="Wrap" Text="(используйте чётный номер матча)" VerticalAlignment="Top" Height="18" Width="218"/>
+        <TextBox x:Name="FindPlayersName2" HorizontalAlignment="Left" Height="25" Margin="10,126,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155" TextChanged="FindPlayersName2_TextChanged"/>
+    </Grid>
+
+</Window>

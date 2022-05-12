@@ -1,0 +1,19 @@
+﻿<Window x:Class="FootballAppListView.Strikers_Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FootballAppListView"
+        mc:Ignorable="d"
+        Title="Strikers_Window" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="C:\Users\komar1511\source\repos\FootballAppListView\FootballAppListView\Resources\Football_Strikers.jpg"/>
+    </Window.Background>
+    <Grid>
+        <Button Content="Назад" Name="BtnBack" Click="BtnBack_Click" Margin="678,10,10,361" FontSize="24"/>
+        <Button Content="Выбрать" Name="BtnClick" Click="Btn_Click" Margin="78,90,596,289" FontSize="24"/>
+        <Frame BorderThickness="0" x:Name="StrikersFrame" HorizontalAlignment="Left" Height="412" Margin="270,0,0,0" VerticalAlignment="Top" Width="344" NavigationUIVisibility="Hidden"/>
+        <ComboBox HorizontalContentAlignment="Center" Name="ComboStrikers" HorizontalAlignment="Left" Margin="49,59,0,0" VerticalAlignment="Top" Width="171" Height="26" SelectionChanged="ComboStrikers_SelectionChanged"/>
+
+    </Grid>
+</Window>

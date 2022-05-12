@@ -1,0 +1,24 @@
+﻿<Window x:Class="FootballAppListView.Admin_MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FootballAppListView"
+        mc:Ignorable="d"
+        Title="Admin_MenuWindow" Height="450" Width="800">
+    <Grid Background="DarkSlateGray">
+        <StackPanel Width="200" Height="auto" Margin="298,75,297,61.5">
+            <Button Height="30"  Content="Админы" Name="BtnAdmins" Click="BtnAdmins_Click"></Button>
+            <Button Height="30" Content="Пользователи" Name="BtnFans" Click="BtnFans_Click"></Button>
+            <Button Height="30" Content="Клубы" Name="BtnClubs" Click="BtnClubs_Click"></Button>
+            <Button Height="30" Content="Тренеры" Name="BtnCoaches" Click="BtnCoaches_Click"></Button>
+            <Button Height="30" Content="Дата и Место" Name="BtnDateLocation" Click="BtnDateLocation_Click"></Button>
+            <Button Height="30" Content="Стадионы" Name="BtnStadium" Click="BtnStadium_Click"></Button>
+            <Button Height="30" Content="Голы" Name="BtnGoals" Click="BtnGoals_Click"></Button>
+            <Button Height="30" Content="Игроки" Name="BtnPlayers" Click="BtnPlayers_Click"></Button>
+            <Button Height="30" Content="Результаты" Name="BtnResults" Click="BtnResults_Click"></Button>
+        </StackPanel>
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden"></Frame>
+        <Button Content="Выход из аккаунта" Name="BtnBack" Click="BtnBack_Click" HorizontalAlignment="Left" Margin="663,10,0,0" VerticalAlignment="Top" Width="122" Height="33"/>
+    </Grid>
+</Window>
